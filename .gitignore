@@ -1,0 +1,65 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+*.egg
+
+# Virtual environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# IDEs
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Testing
+.pytest_cache/
+.coverage
+htmlcov/
+.tox/
+
+# Ruff
+.ruff_cache/
+
+# NIDS specific
+nids.db
+nids.log
+*.log
+
+# Environment
+.env
+.env.local
+
+# Node dashboard
+dashboard-viewer/node_modules/
+dashboard-viewer/.next/
+dashboard-viewer/out/
+dashboard-viewer/dist/
+dashboard-viewer/dist-ssr/
+dashboard-viewer/package-lock.json
+Designing/
+# OS
+Thumbs.db

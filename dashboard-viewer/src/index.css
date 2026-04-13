@@ -1,0 +1,16 @@
+/* Reset CSS for NIDS Dashboard */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background: #080808;
+  font-family: 'JetBrains Mono', 'Fira Code', monospace;
+  color: #d0d0d0;
+}
+
+#root {
+  min-height: 100vh;
+}
