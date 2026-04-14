@@ -189,7 +189,7 @@ const CustomTooltip = ({ active, payload, label }) => {
 // Main dashboard
 // ─────────────────────────────────────────────────────────────
 
-export default function NIDSDashboard() {
+export default function NIDSDashboard({ onLogout }) {
   const [alerts, setAlerts] = useState([]);
   const [paused, setPaused] = useState(false);
   const [filter, setFilter] = useState("all");  // severity filter
@@ -453,6 +453,22 @@ export default function NIDSDashboard() {
             }}
           >
             ✕ Clear
+          </button>
+          <button
+            onClick={onLogout}
+            style={{
+              background: "transparent",
+              border: "1px solid #333",
+              color: "#666",
+              padding: "5px 14px",
+              borderRadius: 4,
+              fontSize: 11,
+              letterSpacing: 1.5,
+              cursor: "pointer",
+              textTransform: "uppercase",
+            }}
+          >
+            ⏻ Logout
           </button>
         </div>
       </div>
