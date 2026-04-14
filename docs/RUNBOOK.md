@@ -19,6 +19,8 @@ poetry shell
 python main.py
 
 # Using venv
+python -m venv venv 
+pip install -r requirements.txt
 source venv/bin/activate
 python main.py
 ```
@@ -263,4 +265,4 @@ curl http://localhost:8000/api/v1/metrics
 
 ---
 
-For architecture and module details, see `ARCHITECTURE.md` and `MODULES.md`.
+For architecture and module details, see `ARCHITEClate!!TURE.md` and `MODULES.md`.

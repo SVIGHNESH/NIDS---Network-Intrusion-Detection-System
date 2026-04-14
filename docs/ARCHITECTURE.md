@@ -56,7 +56,7 @@
 **Components**:
 - `ScapyCapture`: Live packet capture with BPF filtering
 - `PacketCapture`: Base class with bounded queue
-- BPF filter: Pre-filter to reduce noise (IP + TCP/UDP/ICMP)
+- BPF filter (Berkeley Packet Filters): Pre-filter to reduce noise (IP + TCP/UDP/ICMP)
 
 **Design Decisions**:
 - Metadata-first: Only extract essential fields (IPs, ports, proto, flags, size)
