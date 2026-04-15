@@ -130,20 +130,20 @@ function AlertRow({ alert }) {
   const s = SEV_STYLE[alert.severity] || SEV_STYLE.low;
   // Get rule IDs - handle both rule_id (string) and rule_ids (array)
   const ruleIds = alert.rule_ids || (alert.rule_id ? [alert.rule_id] : []);
-  
+
   // Create formatted rule display with names
   const getRuleDisplay = (ruleId) => {
     const name = RULE_LABELS[ruleId] || ruleId;
     return `${ruleId}`;
   };
-  
-  const ruleIdDisplay = ruleIds.length > 0 
-    ? ruleIds.map(r => getRuleDisplay(r)).join(" | ") 
+
+  const ruleIdDisplay = ruleIds.length > 0
+    ? ruleIds.map(r => getRuleDisplay(r)).join(" | ")
     : "N/A";
-  
+
   // Get title or description
   const displayTitle = alert.title || alert.description || "Unknown Alert";
-  
+
   return (
     <div style={{
       display: "grid",
@@ -211,7 +211,7 @@ export default function NIDSDashboard({ onLogout }) {
   // Fetch real-time traffic metrics from API
   useEffect(() => {
     if (pausedRef.current) return;
-    
+
     async function fetchTraffic() {
       try {
         const resp = await fetch(`${API_BASE}/metrics`);
@@ -231,10 +231,10 @@ export default function NIDSDashboard({ onLogout }) {
         // Fallback to simulated if API unavailable
       }
     }
-    
+
     const interval = setInterval(fetchTraffic, 2000);
     fetchTraffic(); // Initial fetch
-    
+
     return () => clearInterval(interval);
   }, []);
 
@@ -249,7 +249,7 @@ export default function NIDSDashboard({ onLogout }) {
           setAlerts(data.alerts || []);
           setConnected(true);
           setUseMock(false);
-          
+
           // Also fetch stats for packet info
           try {
             const statsResp = await fetch(`${API_BASE}/stats`);
@@ -257,7 +257,7 @@ export default function NIDSDashboard({ onLogout }) {
               const stats = await statsResp.json();
               setSimulatedTraffic(stats.total_alerts * 100); // Approximate
             }
-          } catch {}
+          } catch { }
         } else {
           throw new Error("API unavailable");
         }
@@ -387,6 +387,7 @@ export default function NIDSDashboard({ onLogout }) {
   return (
     <div style={{
       background: "#080808",
+
       color: "#d0d0d0",
       minHeight: "100vh",
       fontFamily: "'JetBrains Mono', 'Fira Code', monospace",
@@ -413,8 +414,8 @@ export default function NIDSDashboard({ onLogout }) {
             NIDS · Network Intrusion Detection
           </span>
           <span style={{ fontSize: 11, color: "#666", marginLeft: 8, display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ 
-              width: 6, height: 6, borderRadius: "50%", 
+            <span style={{
+              width: 6, height: 6, borderRadius: "50%",
               background: connected ? "#48bb78" : (useMock ? "#f6ad55" : "#555"),
               animation: "pulse 2s infinite"
             }} />
@@ -484,12 +485,12 @@ export default function NIDSDashboard({ onLogout }) {
 
         {/* ── Stat cards ── */}
         <div style={{ display: "flex", gap: 12 }}>
-          <StatCard label="Total alerts"  value={alerts.length}      color="#a0a0a0" />
-          <StatCard label="Packets"       value={totalPackets} color="#4299e1" />
-          <StatCard label="Critical"      value={counts.critical || 0} color="#e53e3e" />
-          <StatCard label="High"          value={counts.high || 0}    color="#dd6b20" />
-          <StatCard label="Medium"        value={counts.medium || 0}  color="#68d391" />
-          <StatCard label="Low"           value={counts.low || 0}     color="#4299e1" />
+          <StatCard label="Total alerts" value={alerts.length} color="#a0a0a0" />
+          <StatCard label="Packets" value={totalPackets} color="#4299e1" />
+          <StatCard label="Critical" value={counts.critical || 0} color="#e53e3e" />
+          <StatCard label="High" value={counts.high || 0} color="#dd6b20" />
+          <StatCard label="Medium" value={counts.medium || 0} color="#68d391" />
+          <StatCard label="Low" value={counts.low || 0} color="#4299e1" />
         </div>
 
         {/* ── Charts row ── */}

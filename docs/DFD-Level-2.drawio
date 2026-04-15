@@ -1,0 +1,523 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io" modified="2026-04-15T00:00:00.000Z" agent="VT-OS/OPENCODE" version="21.0.0" type="device">
+  <diagram name="DFD Level 2 - Detailed Diagram" id="level2">
+    <mxGraphModel dx="1800" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1800" pageHeight="1400" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="DFD Level 2 - Detailed Process Breakdown&#xa;&#xa;NIDS Complete Data Flow with All Sub-Processes" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="600" y="10" width="500" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 1: PACKET CAPTURE & PARSING -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec1_title" value="1. PACKET CAPTURE &amp; PARSING" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="40" y="70" width="250" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- External: Network -->
+        <mxCell id="ext_net" value="Network" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="50" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Scapy Capture -->
+        <mxCell id="p1_scapy" value="Scapy Capture" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="150" y="115" width="130" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: BPF Filter -->
+        <mxCell id="p1_bpf" value="BPF Filter&#xa;(ip &amp; tcp/udp/icmp)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="150" y="180" width="130" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Packet Parser -->
+        <mxCell id="p1_parser" value="Packet Parser&#xa;(Extract: IP, Port, Proto, Flags, Payload)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="150" y="240" width="130" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: PacketEvent Schema -->
+        <mxCell id="d1_event" value="PacketEvent&#xa;(Schema)" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="160" y="310" width="80" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: Packet Queue -->
+        <mxCell id="d1_queue" value="Packet Queue&#xa;(maxsize=1000)" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=8;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="160" y="370" width="90" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrows for Section 1 -->
+        <mxCell id="a1_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="ext_net" target="p1_scapy">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p1_scapy" target="p1_bpf">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p1_bpf" target="p1_parser">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p1_parser" target="d1_event">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="a1_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="d1_event" target="d1_queue">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 2: DETECTION ENGINES -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec2_title" value="2. DETECTION ENGINES" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="340" y="70" width="250" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Input: From Packet Queue -->
+        <mxCell id="in2_queue" value="From&#xa;Queue" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="360" y="110" width="50" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Rate Detection Engine -->
+        <mxCell id="p2_rate" value="Rate Detection Engine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="150" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- Detection Types in Rate Engine -->
+        <mxCell id="p2_rate_types" value="• Port Scan (RATE-001)&#xa;• Brute Force (RATE-002)&#xa;• SYN Flood (RATE-003)&#xa;• ICMP Flood (RATE-004)&#xa;• Host Sweep (RATE-005)&#xa;• DNS Flood (RATE-006)&#xa;• Data Exfiltration (RATE-007)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#f0f0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=5;spacingRight=5;spacingTop=3;spacingBottom=3" vertex="1" parent="1">
+          <mxGeometry x="510" y="150" width="120" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: YARA Engine -->
+        <mxCell id="p2_yara" value="YARA Signature Engine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="230" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- YARA Rules -->
+        <mxCell id="p2_yara_rules" value="Rules:&#xa;• Web Attacks (SQLi, XSS)&#xa;• Malware (Mimikatz)&#xa;• C2/Exfil&#xa;• Recon (Nmap)&#xa;• Exploits (Log4Shell)" style="text;html=1;strokeColor=#6c8ebf;fillColor=#f0f0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=5;spacingRight=5;spacingTop=3;spacingBottom=3" vertex="1" parent="1">
+          <mxGeometry x="510" y="230" width="120" height="65" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Reputation Engine -->
+        <mxCell id="p2_reput" value="Reputation Engine" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="310" width="160" height="60" as="geometry" />
+        </mxCell>
+        
+        <!-- External API: AbuseIPDB -->
+        <mxCell id="ext_abuse" value="AbuseIPDB&#xa;API" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="560" y="310" width="50" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: Sliding Window -->
+        <mxCell id="d2_window" value="Sliding&#xa;Window&#xa;(Time-based)" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="350" y="390" width="50" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: Set Window -->
+        <mxCell id="d2_set" value="Set&#xa;Window&#xa;(Unique vals)" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="410" y="390" width="50" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: YARA Rules -->
+        <mxCell id="d2_yararules" value="YARA&#xa;Rules File" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="470" y="390" width="50" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Queue to Rate -->
+        <mxCell id="a2_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="d1_queue" target="p2_rate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Queue to YARA -->
+        <mxCell id="a2_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="d1_queue" target="p2_yara">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Rate to Sliding Window -->
+        <mxCell id="a2_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p2_rate" target="d2_window">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Rate to Set Window -->
+        <mxCell id="a2_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p2_rate" target="d2_set">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: YARA to Rules File -->
+        <mxCell id="a2_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p2_yara" target="d2_yararules">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Reputation to AbuseIPDB -->
+        <mxCell id="a2_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333;dashed=1;dashPattern=8 8" edge="1" parent="1" source="p2_reput" target="ext_abuse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Output: Signal Events -->
+        <mxCell id="out2_signal" value="SignalEvent" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="430" y="450" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Rate to Output -->
+        <mxCell id="a2_7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p2_rate" target="out2_signal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: YARA to Output -->
+        <mxCell id="a2_8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p2_yara" target="out2_signal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Reputation to Output -->
+        <mxCell id="a2_9" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p2_reput" target="out2_signal">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 3: CORRELATION & ALERT GENERATION -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec3_title" value="3. CORRELATION &amp; ALERT GENERATION" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="40" y="490" width="300" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Input: From Detection -->
+        <mxCell id="in3_signal" value="SignalEvent" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="50" y="530" width="70" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Deduplication Cache -->
+        <mxCell id="p3_dedup" value="Deduplication Cache" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="560" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Dedupe Details -->
+        <mxCell id="p3_dedup_det" value="Key: rule_id:src_ip:dst_ip:dst_port&#xa;Window: 300 sec" style="text;html=1;strokeColor=#b85450;fillColor=#fff0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="210" y="565" width="130" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Score Calculator -->
+        <mxCell id="p3_score" value="Score Calculator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="630" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Score Formula -->
+        <mxCell id="p3_score_det" value="score = base_severity&#xa;+ min(contribution, 10)&#xa;Capped at 100" style="text;html=1;strokeColor=#b85450;fillColor=#fff0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="210" y="635" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Severity Mapper -->
+        <mxCell id="p3_severity" value="Severity Mapper" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="700" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Severity Thresholds -->
+        <mxCell id="p3_sev_det" value="CRITICAL: >= 100&#xa;HIGH: >= 70&#xa;MEDIUM: >= 40&#xa;LOW: < 40" style="text;html=1;strokeColor=#b85450;fillColor=#fff0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="210" y="705" width="80" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Signal Grouper -->
+        <mxCell id="p3_grouper" value="Signal Grouper" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="770" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Grouper Details -->
+        <mxCell id="p3_grouper_det" value="Groups by&#xa;src_ip:dst_ip" style="text;html=1;strokeColor=#b85450;fillColor=#fff0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="210" y="775" width="60" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Alert Generator -->
+        <mxCell id="p3_alert" value="Alert Generator" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f8cecc;strokeColor=#b85450;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="50" y="840" width="150" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Alert Details -->
+        <mxCell id="p3_alert_det" value="Creates AlertEvent&#xa;With title, desc&#xa;rule_ids, score" style="text;html=1;strokeColor=#b85450;fillColor=#fff0f0;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="210" y="845" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Data Store: Dedupe Cache -->
+        <mxCell id="d3_dedup" value="Dedup&#xa;Cache" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=5;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=9" vertex="1" parent="1">
+          <mxGeometry x="110" y="910" width="40" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Signal to Dedup -->
+        <mxCell id="a3_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="in3_signal" target="p3_dedup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Dedup to Score -->
+        <mxCell id="a3_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p3_dedup" target="p3_score">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Score to Severity -->
+        <mxCell id="a3_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p3_score" target="p3_severity">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Severity to Grouper -->
+        <mxCell id="a3_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p3_severity" target="p3_grouper">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Grouper to Alert -->
+        <mxCell id="a3_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p3_grouper" target="p3_alert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Alert to Dedup Cache -->
+        <mxCell id="a3_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p3_alert" target="d3_dedup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Output: AlertEvent -->
+        <mxCell id="out3_alert" value="AlertEvent" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="120" y="960" width="70" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Alert to Output -->
+        <mxCell id="a3_7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p3_alert" target="out3_alert">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 4: STORAGE -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec4_title" value="4. STORAGE" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="380" y="490" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Database Manager -->
+        <mxCell id="p4_db" value="SQLite Database Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="380" y="530" width="160" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Table: Signals -->
+        <mxCell id="d4_signals" value="signals table" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="390" y="600" width="60" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Table: Alerts -->
+        <mxCell id="d4_alerts" value="alerts table" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="460" y="600" width="60" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Table: Reputation Cache -->
+        <mxCell id="d4_rep" value="reputation_cache table" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=6;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="425" y="650" width="80" height="35" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Query Builder -->
+        <mxCell id="p4_query" value="Query Builder" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="380" y="700" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: Data Cleanup -->
+        <mxCell id="p4_cleanup" value="Data Cleanup&#xa;(Retention: 14 days)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="500" y="700" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Alert to DB -->
+        <mxCell id="a4_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="out3_alert" target="p4_db">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: DB to Signals -->
+        <mxCell id="a4_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_db" target="d4_signals">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: DB to Alerts -->
+        <mxCell id="a4_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_db" target="d4_alerts">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: DB to Reputation -->
+        <mxCell id="a4_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_db" target="d4_rep">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: DB to Query -->
+        <mxCell id="a4_5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_db" target="p4_query">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: DB to Cleanup -->
+        <mxCell id="a4_6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_db" target="p4_cleanup">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 5: API SERVER -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec5_title" value="5. API SERVER" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="650" y="490" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: FastAPI Server -->
+        <mxCell id="p5_api" value="FastAPI Server" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="650" y="530" width="130" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: REST Endpoints -->
+        <mxCell id="p5_rest" value="REST Endpoints" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="600" width="100" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- REST Routes -->
+        <mxCell id="p5_rest_det" value="• GET /alerts&#xa;• GET /stats&#xa;• GET /metrics&#xa;• GET /health" style="text;html=1;strokeColor=#9673a6;fillColor=#f5f0f8;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3" vertex="1" parent="1">
+          <mxGeometry x="760" y="600" width="80" height="45" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: WebSocket Manager -->
+        <mxCell id="p5_ws" value="WebSocket Manager" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="650" y="660" width="130" height="40" as="geometry" />
+        </mxCell>
+        
+        <!-- WS Route -->
+        <mxCell id="p5_ws_det" value="WS /ws/alerts" style="text;html=1;strokeColor=#9673a6;fillColor=#f5f0f8;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3" vertex="1" parent="1">
+          <mxGeometry x="790" y="660" width="60" height="25" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: CORS Handler -->
+        <mxCell id="p5_cors" value="CORS Handler" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#e1d5e7;strokeColor=#9673a6;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="650" y="720" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Storage to API -->
+        <mxCell id="a5_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p4_query" target="p5_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: API to REST -->
+        <mxCell id="a5_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p5_api" target="p5_rest">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: API to WS -->
+        <mxCell id="a5_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p5_api" target="p5_ws">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: API to CORS -->
+        <mxCell id="a5_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p5_api" target="p5_cors">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- SECTION 6: DASHBOARD -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="sec6_title" value="6. DASHBOARD" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="900" y="490" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- External: User -->
+        <mxCell id="ext_user" value="User" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=11" vertex="1" parent="1">
+          <mxGeometry x="1060" y="530" width="50" height="70" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: React Dashboard -->
+        <mxCell id="p6_dash" value="React Dashboard" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="900" y="540" width="130" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- Components -->
+        <mxCell id="p6_comp" value="Components:&#xa;• Alert Feed&#xa;• Severity Stats&#xa;• Charts (Recharts)&#xa;• Top IPs Table&#xa;• Filter Controls" style="text;html=1;strokeColor=#d79b00;fillColor=#fff8e6;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=8;spacingLeft=3;spacingRight=3" vertex="1" parent="1">
+          <mxGeometry x="1040" y="530" width="100" height="65" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: WebSocket Client -->
+        <mxCell id="p6_wsclient" value="WebSocket Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="900" y="610" width="100" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Process: REST Client -->
+        <mxCell id="p6_restclient" value="REST Client" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#ffe6cc;strokeColor=#d79b00;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="1010" y="610" width="80" height="30" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: User to Dashboard -->
+        <mxCell id="a6_1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="ext_user" target="p6_dash">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: API to Dashboard -->
+        <mxCell id="a6_2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=2;strokeColor=#333333" edge="1" parent="1" source="p5_api" target="p6_dash">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Dashboard to WS Client -->
+        <mxCell id="a6_3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p6_dash" target="p6_wsclient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Dashboard to REST Client -->
+        <mxCell id="a6_4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;strokeWidth=1;strokeColor=#666666;dashed=1" edge="1" parent="1" source="p6_dash" target="p6_restclient">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- LEGEND -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="legend_box" value="" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#f5f5f5;strokeColor=#666666;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="40" y="1020" width="300" height="120" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_title" value="LEGEND" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=12;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="55" y="1030" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_proc" value="Process" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#d5e8d4;strokeColor=#82b366;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="55" y="1055" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_ds" value="Data Store" style="shape=cylinder;whiteSpace=wrap;html=1;bounded=1;backgroundOutline=1;size=4;fillColor=#fff2cc;strokeColor=#d6b656;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="130" y="1053" width="40" height="25" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_ext" value="External Entity" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="55" y="1085" width="35" height="50" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_arrow" value="Data Flow" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="100" y="1105" width="60" height="20" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="leg_dashed" value="Reference/Query" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10" vertex="1" parent="1">
+          <mxGeometry x="180" y="1105" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- DATA FLOW SUMMARY -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="flow_title" value="COMPLETE DATA FLOW SUMMARY" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="380" y="770" width="250" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="flow_summary" value="1. Network Packet → Scapy → BPF Filter → Parser → PacketEvent → Queue&#xa;&#xa;2. Queue → Rate Engine (7 types) → Signals&#xa;   Queue → YARA Engine (signatures) → Signals&#xa;   Queue → Reputation Engine (AbuseIPDB) → Signals&#xa;&#xa;3. Signals → Deduplication (300s window) → Score Calculator → Severity Mapper → Alert&#xa;&#xa;4. Alert → SQLite (alerts table) → Query Builder → API Server&#xa;&#xa;5. API Server → REST (/alerts, /stats, /metrics) + WebSocket (/ws/alerts)&#xa;&#xa;6. Dashboard → React UI with real-time updates via WebSocket" style="text;html=1;strokeColor=#666666;fillColor=#f9f9f9;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=10;spacingRight=10;spacingTop=8;spacingBottom=8" vertex="1" parent="1">
+          <mxGeometry x="380" y="805" width="350" height="180" as="geometry" />
+        </mxCell>
+        
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        <!-- KEY METRICS -->
+        <!-- ═══════════════════════════════════════════════════════════════════════ -->
+        
+        <mxCell id="metrics_title" value="KEY CONFIGURATION" style="text;html=1;strokeColor=none;fillColor=#dae8fc;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=14;fontStyle=1;spacingLeft=10;spacingRight=10;spacingTop=5;spacingBottom=5" vertex="1" parent="1">
+          <mxGeometry x="760" y="770" width="200" height="30" as="geometry" />
+        </mxCell>
+        
+        <mxCell id="metrics" value="Capture:&#xa;  • Queue maxsize: 1000&#xa;  • BPF: ip &amp; (tcp/udp/icmp)&#xa;  • Payload preview: 256 bytes&#xa;&#xa;Detection:&#xa;  • Rate windows: 5-60s&#xa;  • YARA gating: enabled&#xa;  • Reputation cache: 3600s&#xa;&#xa;Correlation:&#xa;  • Dedup window: 300s&#xa;  • Score cap: 100&#xa;&#xa;Storage:&#xa;  • Retention: 14 days&#xa;  • Mode: SQLite with WAL" style="text;html=1;strokeColor=#666666;fillColor=#f9f9f9;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=9;spacingLeft=10;spacingRight=10;spacingTop=8;spacingBottom=8" vertex="1" parent="1">
+          <mxGeometry x="760" y="805" width="150" height="180" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

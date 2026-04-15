@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mxfile host="draw.io" modified="2026-04-15T00:00:00.000Z" agent="VT-OS/OPENCODE" version="21.0.0" type="device">
+  <diagram name="DFD Level 0 - Context Diagram" id="level0">
+    <mxGraphModel dx="1200" dy="800" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1200" pageHeight="800" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        
+        <!-- Title -->
+        <mxCell id="title" value="DFD Level 0 - Context Diagram&#xa;&#xa;NIDS System Overview" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=20;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="400" height="50" as="geometry" />
+        </mxCell>
+        
+        <!-- External Entity: Network -->
+        <mxCell id="ext_network" value="Network Traffic&#xa;(External Entity)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="80" y="200" width="60" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: Network to NIDS -->
+        <mxCell id="arrow1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666" edge="1" parent="1" source="ext_network" target="nids_system">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label1" value="Raw Packets" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="170" y="235" width="80" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- NIDS System (Black Box) -->
+        <mxCell id="nids_system" value="NIDS System&#xa;(Network Intrusion&#xa;Detection System)" style="rounded=1;whiteSpace=wrap;html=1;absoluteArcSize=1;fillColor=#dae8fc;strokeColor=#6c8ebf;fontSize=14;fontStyle=1" vertex="1" parent="1">
+          <mxGeometry x="340" y="180" width="280" height="140" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: NIDS to Dashboard -->
+        <mxCell id="arrow2" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeWidth=2;strokeColor=#666666" edge="1" parent="1" source="nids_system" target="ext_dashboard">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label2" value="Alerts" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="650" y="235" width="50" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- External Entity: Dashboard -->
+        <mxCell id="ext_dashboard" value="Dashboard /&#xa;User&#xa;(External Entity)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="780" y="200" width="60" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Arrow: NIDS to External API -->
+        <mxCell id="arrow3" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeWidth=2;strokeColor=#666666;dashed=1;dashPattern=8 8" edge="1" parent="1" source="nids_system" target="ext_api">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="label3" value="IP Reputation Check" style="text;html=1;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontSize=10;fontColor=#666666" vertex="1" parent="1">
+          <mxGeometry x="440" y="360" width="120" height="20" as="geometry" />
+        </mxCell>
+        
+        <!-- External Entity: AbuseIPDB API -->
+        <mxCell id="ext_api" value="AbuseIPDB&#xa;API&#xa;(External Entity)" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;fontSize=12" vertex="1" parent="1">
+          <mxGeometry x="500" y="400" width="60" height="100" as="geometry" />
+        </mxCell>
+        
+        <!-- Legend -->
+        <mxCell id="legend" value="Legend:&#xa;□ External Entity - Systems outside NIDS&#xa;▭ Process - NIDS System" style="text;html=1;strokeColor=#666666;fillColor=#f5f5f5;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=10;spacingLeft=10;spacingRight=10;spacingTop=10;spacingBottom=10;collapsible=0" vertex="1" parent="1">
+          <mxGeometry x="80" y="550" width="200" height="80" as="geometry" />
+        </mxCell>
+        
+        <!-- Description -->
+        <mxCell id="desc" value="Level 0 DFD shows the NIDS system as a single process&#xa;interacting with external entities:&#xa;- Network Traffic: Source of raw packets&#xa;- Dashboard/User: Consumer of alerts&#xa;- AbuseIPDB API: External threat intelligence" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=top;whiteSpace=wrap;rounded=0;fontSize=11;fontColor=#333333;spacingLeft=10;spacingRight=10" vertex="1" parent="1">
+          <mxGeometry x="340" y="360" width="280" height="80" as="geometry" />
+        </mxCell>
+        
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

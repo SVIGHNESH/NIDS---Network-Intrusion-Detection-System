@@ -1,6 +1,6 @@
 /*
   NIDS Custom YARA Rules
-  Author  : NAKAMA NIDS
+  Author  : Vighnesh NIDS
   Version : 1.0
   Purpose : Signature-based detection for common network attack patterns
   Usage   : yara nids_rules.yar <pcap_payload_dump>
@@ -16,7 +16,7 @@ rule SQL_Injection_Classic {
         id          = "WEB-001"
         severity    = "high"
         description = "Classic SQL injection patterns in HTTP payload"
-        author      = "NAKAMA"
+        author      = "Vighnesh"
 
     strings:
         $s1 = "' OR '1'='1"        ascii nocase
