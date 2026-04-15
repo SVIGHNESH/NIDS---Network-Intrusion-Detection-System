@@ -77,6 +77,7 @@ Windows requires Administrator privileges for raw packet capture.
 # Activate virtual environment
 .\venv\Scripts\Activate
 
+
 # Run the NIDS
 python main.py
 ```
