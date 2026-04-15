@@ -71,6 +71,12 @@ This starts:
 - API server on http://localhost:8000
 - WebSocket on ws://localhost:8000/ws/alerts
 
+### First Create & Start the venv 
+
+python -m venv venv 
+source venv/bin/activate 
+
+
 ### Live Capture Mode
 
 ```bash
