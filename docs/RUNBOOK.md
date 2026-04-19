@@ -36,6 +36,7 @@ sudo python main.py
 ```
 
 The backend will:
+
 - Start packet capture on the configured interface
 - Initialize the detection pipeline
 - Start the API server on `http://localhost:8000`
@@ -49,7 +50,7 @@ cd dashboard-viewer
 npm run dev
 ```
 
-Open http://localhost:5173 in your browser.
+Open <http://localhost:5173> in your browser.
 
 ## Triggering Test Alerts
 
@@ -114,7 +115,8 @@ curl http://localhost:8000/api/v1/metrics
 
 ### Via Dashboard
 
-Open http://localhost:5173 in your browser. The dashboard shows:
+Open <http://localhost:5173> in your browser. The dashboard shows:
+
 - Live alert feed (real-time via WebSocket)
 - Severity counters (Critical, High, Medium, Low)
 - Traffic volume chart (packets per second)
@@ -128,6 +130,7 @@ Open http://localhost:5173 in your browser. The dashboard shows:
 By default, NIDS uses the interface configured in settings. **Important:** In container/VM environments, `any` interface does not work. Use a specific interface like `lo` (loopback), `eth0`, or `wlan0`.
 
 Find available interfaces:
+
 ```bash
 ip addr
 # or
@@ -146,6 +149,7 @@ Set via config or environment variable `NIDS_RUNTIME_PROFILE=lite`
 Alerts are stored in SQLite and automatically cleaned up after the configured retention period (default: 7 days).
 
 To reset:
+
 ```bash
 # Stop NIDS, then delete the database
 rm nids.db
@@ -165,10 +169,13 @@ source venv/bin/activate
 ### No Packets Captured
 
 1. Check interface name is correct:
+
    ```bash
    ip addr
    ```
+
 2. Verify interface is up:
+
    ```bash
    sudo ip link set <interface> up
    ```
@@ -176,6 +183,7 @@ source venv/bin/activate
 ### "Interface not found" Error
 
 Use specific interface name instead of `any`. Common options:
+
 - `lo` - loopback (for local testing)
 - `eth0` - first ethernet interface
 - `wlan0` - wireless interface
@@ -183,6 +191,7 @@ Use specific interface name instead of `any`. Common options:
 ### High CPU or Memory
 
 Switch to lite profile:
+
 ```bash
 export NIDS_RUNTIME_PROFILE=lite
 sudo python main.py
@@ -191,6 +200,7 @@ sudo python main.py
 ### No Alerts Generated
 
 Ensure you're generating traffic to the correct target IP:
+
 ```bash
 # Default target is 127.0.0.1 (loopback)
 python generate_nids_alerts.py --target 127.0.0.1 --mode portscan
@@ -222,6 +232,7 @@ curl http://localhost:8000/api/v1/metrics
 ```
 
 Response includes:
+
 - `packets_per_sec`: Current packet rate
 - `total_packets`: Cumulative packets since start
 - `packets_dropped`: Dropped packets count
@@ -232,6 +243,7 @@ Response includes:
 Logs are written to `nids.log` in the project directory.
 
 View recent logs:
+
 ```bash
 tail -f nids.log
 ```

@@ -97,7 +97,7 @@ class DatabaseConfig(BaseModel):
 class CaptureConfig(BaseModel):
     """Packet capture configuration"""
 
-    interface: str = "auto"  # "auto" = detect automatically, or specify interface name
+    interface: str = "wlan0"  # "auto" = detect automatically, or specify interface name
     bpf_filter: str = "ip and (tcp or udp or icmp)"
     queue_maxsize: int = 1000
     buffer_size: int = 65535
