@@ -18,6 +18,7 @@ from nids.core.degradation import DegradationController, RuntimeProfile, Feature
 from nids.core.metrics import MetricsCollector, SystemMetrics
 from nids.detectors.rate_engine import RateDetector
 from nids.detectors.yara_engine import YaraDetector
+from nids.detectors.ml_engine import MLDetector
 from nids.enrichment.reputation import ReputationEngine, ReputationWorker
 from nids.storage.database import Database, get_database
 
@@ -36,6 +37,7 @@ class PipelineStats:
     queue_depth: int = 0
     yara_enabled: bool = True
     reputation_enabled: bool = True
+    ml_enabled: bool = False
 
 
 class NIDSPipeline:
@@ -108,6 +110,24 @@ class NIDSPipeline:
             self.yara_detector = None
             logger.info("YARA detector disabled by runtime config")
 
+        # ML detector (controlled by degradation)
+        if self.settings.runtime.enable_ml:
+            ml_cfg = self.settings.ml.model_copy(update={"enabled": True})
+            self.ml_detector = MLDetector(ml_cfg)
+            try:
+                if self.ml_detector.initialize():
+                    # Enable the degradation gate only when the model actually loaded
+                    self.degradation.set_override(Feature.ML_ANOMALY, True)
+                else:
+                    logger.warning("ML detector could not initialize — continuing without ML")
+                    self.ml_detector = None
+            except Exception as e:
+                logger.error(f"ML detector init failed: {e}")
+                self.ml_detector = None
+        else:
+            self.ml_detector = None
+            logger.info("ML detector disabled by runtime config")
+
         # Reputation engine (controlled by degradation)
         if self.settings.runtime.enable_reputation:
             self.reputation_engine = ReputationEngine(
@@ -154,6 +174,17 @@ class NIDSPipeline:
                 else:
                     with self._stats_lock:
                         self._stats.yara_enabled = False
+
+            # ML anomaly detection (check degradation state)
+            if self.ml_detector and self.ml_detector.is_initialized():
+                if self.degradation.is_enabled(Feature.ML_ANOMALY):
+                    ml_signals = self.ml_detector.process(packet)
+                    signals.extend(ml_signals)
+                    with self._stats_lock:
+                        self._stats.ml_enabled = True
+                else:
+                    with self._stats_lock:
+                        self._stats.ml_enabled = False
 
             # Process signals
             if signals:
@@ -311,6 +342,7 @@ class NIDSPipeline:
                 queue_depth=self._stats.queue_depth,
                 yara_enabled=self._stats.yara_enabled,
                 reputation_enabled=self._stats.reputation_enabled,
+                ml_enabled=self._stats.ml_enabled,
             )
 
     def is_running(self) -> bool:

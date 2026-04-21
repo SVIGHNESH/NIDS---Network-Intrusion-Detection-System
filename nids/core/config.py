@@ -204,6 +204,16 @@ class RateDetectorConfig(BaseModel):
     cooldown_sec: int = 60
 
 
+class MLDetectorConfig(BaseModel):
+    """Machine-learning anomaly detector configuration"""
+
+    enabled: bool = False
+    model_path: str = "models/iforest.pkl"
+    high_threshold: float = -0.25
+    medium_threshold: float = -0.10
+    cooldown_sec: int = 60
+
+
 class YaraConfig(BaseModel):
     """YARA engine configuration"""
 
@@ -234,7 +244,7 @@ class CorrelatorConfig(BaseModel):
 
     dedup_window_sec: int = 300
     score_weights: dict = Field(
-        default_factory=lambda: {"rate": 30, "yara": 50, "reputation": 40}
+        default_factory=lambda: {"rate": 30, "yara": 50, "reputation": 40, "ml": 45}
     )
     severity_thresholds: dict = Field(
         default_factory=lambda: {"critical": 100, "high": 70, "medium": 40, "low": 10}
@@ -271,6 +281,7 @@ class Settings(BaseSettings):
     database: DatabaseConfig = Field(default_factory=DatabaseConfig)
     capture: CaptureConfig = Field(default_factory=CaptureConfig)
     rate_detector: RateDetectorConfig = Field(default_factory=RateDetectorConfig)
+    ml: MLDetectorConfig = Field(default_factory=MLDetectorConfig)
     yara: YaraConfig = Field(default_factory=YaraConfig)
     reputation: ReputationConfig = Field(default_factory=ReputationConfig)
     correlator: CorrelatorConfig = Field(default_factory=CorrelatorConfig)

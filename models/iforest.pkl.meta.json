@@ -1,0 +1,19 @@
+{
+  "trained_at": 1776713693.0842466,
+  "trained_at_human": "2026-04-21 01:04:53",
+  "packet_count": 18491,
+  "feature_names": [
+    "size",
+    "proto_code",
+    "dst_port",
+    "src_port_ephemeral",
+    "tcp_flags_bitmap",
+    "is_syn",
+    "is_ack",
+    "is_private_src",
+    "hour_of_day",
+    "payload_len"
+  ],
+  "contamination": 0.01,
+  "model_version": "iforest-v1"
+}
